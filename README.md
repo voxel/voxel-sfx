@@ -1,0 +1,6 @@
+# voxel-sfx
+
+## License
+
+MIT
+
