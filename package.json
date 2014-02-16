@@ -10,8 +10,8 @@
     "voxel"
   ],
   "dependencies": {
+    "play-audio": "~0.1.0"
   },
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "license": "MIT"
 }

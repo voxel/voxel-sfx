@@ -1,3 +1,6 @@
+'use strict';
+
+var play_audio = require('play-audio');
 
 module.exports = function(game, opts) {
   return new SfxPlugin(game, opts);
@@ -10,6 +13,9 @@ module.exports.pluginInfo = {
 
 function SfxPlugin(game, opts) {
   this.game = game;
+
+  this.artPacks = this.game.materials.artPacks;
+  if (!this.artPacks) throw new Error('voxel-sfx requires game.materials to support artPacks (try voxel-texture-shader)');
 
   this.enable();
 }
@@ -31,5 +37,10 @@ SfxPlugin.prototype.disable = function() {
 };
 
 SfxPlugin.prototype.play = function(name) {
-  console.log('TODO: play ',name);
+  var url = this.artPacks.getSound(name);
+  if (!url) return false;
+
+  console.log('Playing sound',name,url);
+
+  play_audio(url).autoplay();
 };
