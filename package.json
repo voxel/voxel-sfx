@@ -1,7 +1,7 @@
 {
   "name": "voxel-sfx",
   "description": "sound effects (voxel.js plugin)",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "sfx.js",
   "repository": {
     "type": "git",
