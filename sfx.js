@@ -51,11 +51,11 @@ SfxPlugin.prototype.play = function(name, loop, url) {
   loop = loop || false;
   url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
   if (!url) {
-    console.log("Not found: " + name + " URL: " + url)
+    console.log('voxel-sfx sound not found: ' + name + ' URL: ' + url)
     return false;
   }
-  console.log('Playing sound',name,url);
-  if(loop) {
+  console.log('voxel-sfx playing sound',name,url);
+  if (loop) {
     play_audio(url).autoplay().loop();
   } else {
     play_audio(url).autoplay();
