@@ -47,10 +47,12 @@ SfxPlugin.prototype.disable = function() {
   if (this.harvestPlugin) this.harvestPlugin.removeListener('harvested', this.onHarvested);
 };
 
-SfxPlugin.prototype.play = function(name) {
-  var url = this.artPacks.getSound(name);
+SfxPlugin.prototype.play = function(name, url = null) {
+  if(!url){
+    var url = this.artPacks.getSound(name);
+  }
   if (!url){
-    console.log("Not found: " + name + "URL: " + url)
+    console.log("Not found: " + name + " URL: " + url)
      return false;
    }
   console.log('Playing sound',name,url);
