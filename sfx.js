@@ -47,15 +47,18 @@ SfxPlugin.prototype.disable = function() {
   if (this.harvestPlugin) this.harvestPlugin.removeListener('harvested', this.onHarvested);
 };
 
-SfxPlugin.prototype.play = function(name, url = null) {
-  if(!url){
-    var url = this.artPacks.getSound(name);
-  }
+SfxPlugin.prototype.play = function(name, loop) {
+  loop = loop || false;
+  var url = this.artPacks.getSound(name);
   if (!url){
     console.log("Not found: " + name + " URL: " + url)
      return false;
    }
   console.log('Playing sound',name,url);
-
-  play_audio(url).autoplay();
+  if(loop){
+    play_audio(url).autoplay().loop();
+  }
+  else{
+    play_audio(url).autoplay();
+  }
 };
