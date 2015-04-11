@@ -32,6 +32,11 @@ SfxPlugin.prototype.enable = function() {
     });
   }
 
+  this.mine = this.game.plugins.get('voxel-mine');
+  this.mine.on('break', function(target){
+    console.log("Broken Block!")
+  });
+
   this.harvestPlugin = this.game.plugins.get('voxel-harvest');
   if (this.harvestPlugin && this.registry) {
     this.harvestPlugin.on('harvested', this.onHarvested = function(event) {
@@ -47,11 +52,18 @@ SfxPlugin.prototype.disable = function() {
   if (this.harvestPlugin) this.harvestPlugin.removeListener('harvested', this.onHarvested);
 };
 
-SfxPlugin.prototype.play = function(name) {
-  var url = this.artPacks.getSound(name);
-  if (!url) return false;
-
+SfxPlugin.prototype.play = function(name, loop, url) {
+  loop = loop || false;
+  url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
+  if (!url){
+    console.log("Not found: " + name + " URL: " + url)
+     return false;
+   }
   console.log('Playing sound',name,url);
-
-  play_audio(url).autoplay();
+  if(loop){
+    play_audio(url).autoplay().loop();
+  }
+  else{
+    play_audio(url).autoplay();
+  }
 };
