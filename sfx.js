@@ -55,15 +55,14 @@ SfxPlugin.prototype.disable = function() {
 SfxPlugin.prototype.play = function(name, loop, url) {
   loop = loop || false;
   url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
-  if (!url){
+  if (!url) {
     console.log("Not found: " + name + " URL: " + url)
-     return false;
-   }
-  console.log('Playing sound',name,url);
-  if(loop){
-    play_audio(url).autoplay().loop();
+    return false;
   }
-  else{
+  console.log('Playing sound',name,url);
+  if(loop) {
+    play_audio(url).autoplay().loop();
+  } else {
     play_audio(url).autoplay();
   }
 };
