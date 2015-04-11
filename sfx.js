@@ -50,7 +50,7 @@ SfxPlugin.prototype.disable = function() {
 SfxPlugin.prototype.play = function(name) {
   var url = this.artPacks.getSound(name);
   if (!url){
-    console.log("Not found: " + name + "URL: " = url)
+    console.log("Not found: " + name + "URL: " + url)
      return false;
    }
   console.log('Playing sound',name,url);
