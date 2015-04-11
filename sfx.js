@@ -52,9 +52,10 @@ SfxPlugin.prototype.disable = function() {
   if (this.harvestPlugin) this.harvestPlugin.removeListener('harvested', this.onHarvested);
 };
 
-SfxPlugin.prototype.play = function(name, loop, url) {
+SfxPlugin.prototype.play = function(name, loop, volume, url) {
   loop = loop || false;
   url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
+  volume = volume || 1.0
   if (!url){
     console.log("Not found: " + name + " URL: " + url)
      return false;
@@ -67,3 +68,27 @@ SfxPlugin.prototype.play = function(name, loop, url) {
     play_audio(url).autoplay();
   }
 };
+
+SfxPlugin.prototype.pause = function(name, url){
+  url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
+  if (!url){
+    console.log("Not found: " + name + " URL: " + url)
+    return false;
+  }
+
+  console.log('Pausing sound',name,url);
+
+  play_audio(url).pause();
+}
+
+SfxPlugin.prototype.preload = function(name, url){
+  url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
+  if (!url){
+    console.log("Not found: " + name + " URL: " + url)
+    return false;
+  }
+
+  console.log('Preloading sound',name,url);
+
+  play_audio(url).preload();
+}
