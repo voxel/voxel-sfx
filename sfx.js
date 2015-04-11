@@ -32,11 +32,6 @@ SfxPlugin.prototype.enable = function() {
     });
   }
 
-  this.mine = this.game.plugins.get('voxel-mine');
-  this.mine.on('break', function(target){
-    console.log("Broken Block!")
-  });
-
   this.harvestPlugin = this.game.plugins.get('voxel-harvest');
   if (this.harvestPlugin && this.registry) {
     this.harvestPlugin.on('harvested', this.onHarvested = function(event) {
