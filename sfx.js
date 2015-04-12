@@ -34,7 +34,9 @@ SfxPlugin.prototype.enable = function() {
 
   this.mine = this.game.plugins.get('voxel-mine');
   this.mine.on('break', function(target){
-    console.log("Broken Block!")
+    var blockName = this.registry.getBlockName(target.value); // eg grass
+    var breakSound = this.registry.getProp(blockName, 'breakSound') || 'break/block'
+    self.play(breakSound);
   });
 
   this.harvestPlugin = this.game.plugins.get('voxel-harvest');
