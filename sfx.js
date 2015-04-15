@@ -32,6 +32,15 @@ SfxPlugin.prototype.enable = function() {
     });
   }
 
+  this.mine = this.game.plugins.get('voxel-mine');
+  if (this.mine) {
+    this.mine.on('break', function(target){
+      var blockName = this.registry.getBlockName(target.value); // eg grass
+      var breakSound = this.registry.getProp(blockName, 'breakSound') || 'break/block'
+      self.play(breakSound);
+    });
+  }
+
   this.harvestPlugin = this.game.plugins.get('voxel-harvest');
   if (this.harvestPlugin && this.registry) {
     this.harvestPlugin.on('harvested', this.onHarvested = function(event) {
@@ -47,17 +56,45 @@ SfxPlugin.prototype.disable = function() {
   if (this.harvestPlugin) this.harvestPlugin.removeListener('harvested', this.onHarvested);
 };
 
-SfxPlugin.prototype.play = function(name, loop, url) {
+SfxPlugin.prototype.play = function(name, loop, volume, url) {
   loop = loop || false;
   url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
   if (!url) {
     console.log('voxel-sfx sound not found: ' + name + ' URL: ' + url)
     return false;
   }
+
+  volume = volume || 1.0;
+
   console.log('voxel-sfx playing sound',name,url);
+
   if (loop) {
     play_audio(url).autoplay().loop();
   } else {
     play_audio(url).autoplay();
   }
+};
+
+SfxPlugin.prototype.pause = function(name, url) {
+  url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
+  if (!url) {
+    console.log("Not found: " + name + " URL: " + url)
+    return false;
+  }
+
+  console.log('Pausing sound',name,url);
+
+  play_audio(url).pause();
+};
+
+SfxPlugin.prototype.preload = function(name, url) {
+  url = url || this.artPacks.getSound(name);  // Allows you to specify url out side of resource pack
+  if (!url){
+    console.log("Not found: " + name + " URL: " + url)
+    return false;
+  }
+
+  console.log('Preloading sound',name,url);
+
+  play_audio(url).preload();
 };
