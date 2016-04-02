@@ -1,6 +1,6 @@
 'use strict';
 
-var play_audio = require('play-audio');
+var play_audio = require('audio-play');
 
 module.exports = function(game, opts) {
   return new SfxPlugin(game, opts);
